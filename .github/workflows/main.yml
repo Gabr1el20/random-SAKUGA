@@ -27,7 +27,7 @@ jobs:
     - name: Commit and Push Changes
       run: |
         git config --local user.email "6327@holbertonstudents.com"
-        git config --local user.name "Gabr1el20"
+        git config --local user.name "${GITHUB_ACTOR}"
         git add api_response.json
         git commit -m "Update API response"
         git push
