@@ -1,0 +1,25 @@
+name: Fetch API and Save as JSON
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  fetch-and-save-json:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Fetch from API and Save as JSON
+      run: |
+        API_URL="https://api.example.com/data"
+        RESPONSE=$(curl -s $API_URL)
+
+        # Guardar la respuesta en un archivo JSON
+        echo "$RESPONSE" > api_response.json
+
+        # Puedes imprimir la respuesta o realizar otras operaciones según tus necesidades
+        echo "API Response: $RESPONSE"
