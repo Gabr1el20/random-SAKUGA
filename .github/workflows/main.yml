@@ -1,6 +1,8 @@
 name: Fetch API and Save as JSON
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - main
