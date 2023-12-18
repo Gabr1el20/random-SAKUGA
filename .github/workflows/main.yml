@@ -6,6 +6,21 @@ on:
     - cron: '*/3 * * * *'
 
 jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Read JSON file
+        id: read-json
+        run: echo "::set-output name=data::$(cat api_response.json | jq -r .data)"
+
+      - name: Update README
+        run: |
+          sed -i "s|{{IMAGE_SRC}}|${{ steps.read-json.outputs.data }}|g" TEST.md
+
   fetch-and-save-json:
     runs-on: ubuntu-latest
 
