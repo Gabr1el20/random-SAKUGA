@@ -12,14 +12,26 @@ async function fetchDataFromAPI () {
   }
 }
 
+function getImageSrcFromContent (content) {
+  // Expresión regular para buscar el valor después de src=
+  const regex = /src="(.*?)"/
+
+  // Ejecutar la expresión regular en el contenido del archivo
+  const match = content.match(regex)
+
+  // Si se encuentra una coincidencia, devolver el valor capturado, de lo contrario, devolver null
+  return match ? match[1] : null
+}
+
 // Función para actualizar el archivo TEST.md con el nuevo valor de src
 async function updateTestFile (imageSrc) {
   try {
     const testFilePath = 'TEST.md' // Reemplaza 'RUTA_A_TEST.md' con la ruta real de tu archivo TEST.md
     let testFileContent = fs.readFileSync(testFilePath, 'utf-8')
-    console.log(testFileContent)
+
+    const urlToChange = getImageSrcFromContent(testFileContent)
     // Reemplazar {{IMAGE_SRC}} con el nuevo valor
-    testFileContent = testFileContent.replace('{{IMAGE_SRC}}', imageSrc)
+    testFileContent = testFileContent.replace(urlToChange, imageSrc)
 
     // Guardar el archivo actualizado
     fs.writeFileSync(testFilePath, testFileContent, 'utf-8')
