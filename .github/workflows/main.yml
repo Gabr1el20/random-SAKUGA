@@ -6,38 +6,23 @@ on:
     - cron: '*/3 * * * *'
 
 jobs:
-  update-readme:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Read JSON file
-        id: read-json
-        run: echo "::set-output name=data::$(cat api_response.json | jq -r .data)"
-
-      - name: Update README
-        run: |
-          sed -i "s|{{IMAGE_SRC}}|${{ steps.read-json.outputs.data }}|g" TEST.md
-
-  fetch-and-save-json:
+  update-test-file:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Fetch from API and Save as JSON
-      run: |
-        API_URL="https://random-ka-v2.onrender.com"
-        RESPONSE=$(curl -s $API_URL)
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
 
-        # Guardar la respuesta en un archivo JSON
-        echo "$RESPONSE" > api_response.json
+    - name: Install dependencies
+      run: npm install
 
-        # Puedes imprimir la respuesta o realizar otras operaciones según tus necesidades
-        echo "API Response: $RESPONSE"
+    - name: Run script
+      run: node tu-script.js 
 
     - name: Commit and Push Changes
       run: |
