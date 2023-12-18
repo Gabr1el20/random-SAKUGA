@@ -15,7 +15,7 @@ jobs:
 
     - name: Fetch from API and Save as JSON
       run: |
-        API_URL="https://api.example.com/data"
+        API_URL="https://random-ka-v2.onrender.com"
         RESPONSE=$(curl -s $API_URL)
 
         # Guardar la respuesta en un archivo JSON
