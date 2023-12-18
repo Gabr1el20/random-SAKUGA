@@ -2,7 +2,6 @@ name: Fetch API and Save as JSON
 
 on:
   workflow_dispatch:
-
   push:
     branches:
       - main
@@ -25,3 +24,9 @@ jobs:
 
         # Puedes imprimir la respuesta o realizar otras operaciones según tus necesidades
         echo "API Response: $RESPONSE"
+
+    - name: Commit and Push Changes
+      run: |
+        git add api_response.json
+        git commit -m "Update API response"
+        git push
