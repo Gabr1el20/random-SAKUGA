@@ -2,9 +2,8 @@ name: Fetch API and Save as JSON
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: '*/3 * * * *'
 
 jobs:
   fetch-and-save-json:
@@ -27,6 +26,8 @@ jobs:
 
     - name: Commit and Push Changes
       run: |
+        git config --local user.email "6327@holbertonstudents.com"
+        git config --local user.name "Gabr1el20"
         git add api_response.json
         git commit -m "Update API response"
         git push
